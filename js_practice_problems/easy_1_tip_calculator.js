@@ -7,10 +7,8 @@ function total(bill, tipPercent) {
     console.log(`The total is \$${bill.toFixed(2)}`);
 }
 
-console.log('What is the bill?');
-bill = READLINE.question();
+bill = +READLINE.question('What is the bill? ');
 
-console.log('What is the tip percentage?');
-tip = READLINE.question();
+tip = +READLINE.question('What is the tip percentage? ');
 
-total(parseFloat(bill), parseFloat(tip));
+total(bill, tip);
