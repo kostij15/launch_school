@@ -13,4 +13,4 @@ bill = READLINE.question();
 console.log('What is the tip percentage?');
 tip = READLINE.question();
 
-total(Number(bill), Number(tip));
+total(parseFloat(bill), parseFloat(tip));
