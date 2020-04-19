@@ -1,0 +1,10 @@
+{
+    "en": {
+        "welcome": "Welcome to Calculator! Enter your name:",
+        "invalidName": "Make sure to enter a valid name."
+    },
+    "es": {
+        "welcome": "Bienvenido a la calculadora! Entre su nombre:",
+        "invalidName": "Asegúrese de entrar un nombre válido."
+    }
+}
