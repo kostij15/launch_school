@@ -86,7 +86,7 @@ let famousWords = "seven years ago...";
 // console.log((statement2.match(/t/g) || []).length);
 
 //Questioon 10
-let title = "Flintstone Family Members";
-let padding = Math.floor((40 - title.length) / 2);
+// let title = "Flintstone Family Members";
+// let padding = Math.floor((40 - title.length) / 2);
 
-console.log(title.padStart(padding + title.length));
+// console.log(title.padStart(padding + title.length));
