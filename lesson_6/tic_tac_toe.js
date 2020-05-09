@@ -1,5 +1,5 @@
 // Constant variables
-const READSYNC = require('readline-sync');
+const READLINE = require('readline-sync');
 
 //Functions
 //Board Functions
@@ -34,9 +34,9 @@ displayBoard(board);
 
 //Player choice
 function markerChoice() {
-  marker = String.toLowerCase(READSYNC.question("Please select the marker you would like to use?\nX or O"));
+  marker = String.toLowerCase(READLINE.question("Please select the marker you would like to use?\nX or O"));
   while (marker !== 'x' || marker !== 'o') {
-    marker = String.toLowerCase(READSYNC.question("Please select either X or O"))
+    marker = String.toLowerCase(READLINE.question("Please select either X or O"))
   }
   return marker;
 }
