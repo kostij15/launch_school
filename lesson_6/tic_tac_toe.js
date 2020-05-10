@@ -1,21 +1,27 @@
 // Constant variables
 const READLINE = require('readline-sync');
+const BOARD_SQUARES = 9;
 
 //code
-let play = true;
 let board = newBoard();
-playerMarker = markerChoice();
-computerMarker = playerMarker === 'X' ? 'O' : 'X';
+let playerMarker = markerChoice();
+let computerMarker = playerMarker === 'X' ? 'O' : 'X';
+let firstTurn;
+let playerScore = 0;
+let computerScore = 0;
 
-while (play) {
+while (true) {
   displayBoard(board);
 
-  playerBoardChoice(board);
-  computerBoardChoice(board);
+  participantBoardOrder(board);
 
-  displayBoard(board);
+  if (checkWinningBoard(board) !== undefined) {
+    let play = playAgain();
+    if (play === false) {
+      break;
+    }
+  }
 
-  checkWinningBoard(board);
 }
 
 //Functions
@@ -39,11 +45,18 @@ function displayBoard(board) {
 function newBoard() {
   let newBoard = {};
 
-  for (let i = 1; i <= 9; i++) {
+  for (let i = 1; i <= BOARD_SQUARES; i++) {
     newBoard[i] = i;
   }
 
   return newBoard;
+}
+
+function newGame() {
+  board = newBoard();
+  playerMarker = markerChoice();
+  computerMarker = playerMarker === 'X' ? 'O' : 'X';
+  leadingTurn();
 }
 
 //Player choice
@@ -59,7 +72,7 @@ function playerBoardChoice(board) {
   playerChoice = READLINE.question(`Please select an empty place on the board:\n`);
   while (typeof board[playerChoice] === 'string') {
     playerChoice = READLINE.question(`Please select an empty place on the board:\n`);
-    displayBoard(Board);
+    displayBoard(board);
   }
   board[playerChoice] = playerMarker;
 }
@@ -67,35 +80,39 @@ function playerBoardChoice(board) {
 
 //Computer Choice
 function computerBoardChoice(board) {
-  let computerChoice = Math.ceil(Math.random() * 9).toString();
+  let computerChoice = Math.ceil(Math.random() * BOARD_SQUARES).toString();
   while (computerChoice === "0" || typeof board[computerChoice] !== 'number') {
-    computerBoardChoice = Math.ceil(Math.random() * 9).toString();
+    computerChoice = Math.ceil(Math.random() * BOARD_SQUARES).toString();
   }
   board[computerChoice] = computerMarker;
 }
 
+//Deciding whose turn
+function leadingTurn() {
+  let participants = ['computer', 'player'];
+  let randomInt = Math.floor(Math.random() * (participants.length - 1));
+
+  firstTurn = participants[randomInt];
+}
+
+function participantBoardOrder(board) {
+  if (firstTurn === 'computer') {
+    console.log("Computer Goes First!")
+    computerBoardChoice(board);
+    displayBoard()
+    playerBoardChoice(board);
+  } else {
+    console.log("Player Goes First!")
+    playerBoardChoice(board);
+    computerBoardChoice(board);
+  }
+}
+
 // Winning Combinations
 function sameMarker(nestedArr, marker) {
-  return nestedArr.every(subArr => {
+  return nestedArr.some(subArr => {
     return subArr.every(elem => elem === marker);
   })
-}
-
-function allSquaresFilled(board) {
-  return Object.values(board).every(squares => typeof squares === 'string');
-}
-
-function playAgain() {
-  playAgain = READLINE.question("Would you like to play again? (yes/no) \n");
-  while (playAgain !== 'yes' && playAgain !== 'no') {
-    playAgain = READLINE.question("Would you like to play again? (yes/no) \n");
-  }
-  if (playAgain === 'yes') {
-    board = newBoard();
-    return true;
-  }
-  displayBoard(board);
-  return false;
 }
 
 function checkWinningBoard(board) {
@@ -110,16 +127,41 @@ function checkWinningBoard(board) {
     [board["7"], board["8"], board["9"]]
   ];
 
-  playerWins = sameMarker(winningCombination, playerMarker);
-  console.log(playerWins);
-  computerWins = sameMarker(winningCombination, computerMarker);
-  console.log(computerWins);
+  let playerWins = sameMarker(winningCombination, playerMarker);
+  let computerWins = sameMarker(winningCombination, computerMarker);
+  let allSquaresFilled = Object.values(board).every(squares => typeof squares === 'string');
+  console.log(allSquaresFilled);
 
   if (playerWins === true) {
     console.log("Player Wins!");
-    play = playAgain();
+    playerScore += 1;
+    return 1;
   } else if (computerWins === true) {
     console.log("Computer Wins!");
-    play = playAgain();
+    computerScore += 1;
+    return 0;
+  } else if (allSquaresFilled === true) {
+    console.log("Its a tie");
+    return 2;
+  }
+}
+
+function playAgain(play) {
+  console.log(`Player Score: ${playerScore}\nComputer Score: ${computerScore}`)
+
+  let againResponse = READLINE.question("Would you like to play again? (yes/no) \n");
+  let validResponse = ['yes', 'no'];
+
+  while (!validResponse.includes(againResponse)) {
+    againResponse = READLINE.question("Would you like to play again? (yes/no) \n");
+  }
+
+  if (againResponse === 'yes') {
+    newGame();
+    console.clear();
+    return true;
+  } else {
+    console.log('Thanks for Playing!');
+    return false;
   }
 }
