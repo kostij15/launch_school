@@ -34,22 +34,6 @@ let overallDealerGames = 0;
 
 let deck = [];
 
-//For the responsible gambler
-let games = numberOfGames();
-
-while (games > 0) {
-  deck = initializeDeck();
-  gameStart();
-  dealCards(deck);
-
-  playerMove(deck);
-  displayGames();
-
-  games -= 1;
-
-}
-finalMessage(overallPlayerGames, overallDealerGames);
-
 //Games Question
 function numberOfGames() {
   let games = Number(READLINE.question("How many games would you like to play?\nPLEASE ENTER A NUMBER\n"));
@@ -272,3 +256,21 @@ function finalMessage(playerGames, dealerGames) {
 //     return false;
 //   }
 // }
+
+
+//Main Block
+//For the responsible gambler
+let games = numberOfGames();
+
+while (games > 0) {
+  deck = initializeDeck();
+  gameStart();
+  dealCards(deck);
+
+  playerMove(deck);
+  displayGames();
+
+  games -= 1;
+
+}
+finalMessage(overallPlayerGames, overallDealerGames);
