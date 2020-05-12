@@ -32,9 +32,9 @@ let currentDealerScore = 0;
 let overallPlayerGames = 0;
 let overallDealerGames = 0;
 
-let deck;;
+let deck = [];
 
-//Limiting our losses
+//For the responsible gambler
 let games = numberOfGames();
 
 while (games > 0) {
@@ -156,7 +156,7 @@ function playerMove(deck) {
     let nextCard = deck.shift();
 
     while (!validAnswer.includes(response)) {
-      let response = READLINE.question("Hit or Stay?\n");
+      response = READLINE.question("Hit or Stay?\n");
     }
 
     if (response === 'hit') {
@@ -220,6 +220,7 @@ function bust(cardTotal) {
   }
 }
 
+//Check if 21
 function twentyOne(cardTotal) {
   if (cardTotal === WINNING_SCORE) {
     return true;
@@ -228,6 +229,7 @@ function twentyOne(cardTotal) {
   }
 }
 
+//Decision if 21 and bust don't happen
 function turnDecision(currentPlayerScore, currentDealerScore) {
   console.log(`Final Player Score: ${currentPlayerScore}`);
   console.log(`Final Dealer Score: ${currentDealerScore}`);
@@ -243,6 +245,7 @@ function turnDecision(currentPlayerScore, currentDealerScore) {
   }
 }
 
+//Last message after games are completed
 function finalMessage(playerGames, dealerGames) {
   if (playerGames > dealerGames) {
     console.log("\nOverall Player Wins!");
@@ -253,7 +256,7 @@ function finalMessage(playerGames, dealerGames) {
   }
 }
 
-//Play Again
+//Play Again if need be
 // function playAgain() {
 //   let validScores = ['y', 'n'];
 //   let response = READLINE.question("Would you like to play again?\n");
