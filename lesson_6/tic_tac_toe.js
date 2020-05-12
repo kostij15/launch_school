@@ -9,13 +9,19 @@ let computerMarker = playerMarker === 'X' ? 'O' : 'X';
 let firstTurn;
 let playerScore = 0;
 let computerScore = 0;
+console.log(board);
 
 while (true) {
   displayBoard(board);
 
   participantBoardOrder(board);
 
-  if (checkWinningBoard(board) !== undefined) {
+  if (checkWinningBoard(board) === true) {
+    let play = playAgain();
+    if (play === false) {
+      break;
+    }
+  } else if (tieCheck(board)) {
     let play = playAgain();
     if (play === false) {
       break;
@@ -115,6 +121,11 @@ function sameMarker(nestedArr, marker) {
   })
 }
 
+function tieCheck(board) {
+  let allSquaresFilled = Object.values(board).every(squares => typeof squares === 'string');
+
+  return allSquaresFilled;
+}
 function checkWinningBoard(board) {
   let winningCombination = [
     [board["1"], board["2"], board["3"]],
@@ -129,20 +140,17 @@ function checkWinningBoard(board) {
 
   let playerWins = sameMarker(winningCombination, playerMarker);
   let computerWins = sameMarker(winningCombination, computerMarker);
-  let allSquaresFilled = Object.values(board).every(squares => typeof squares === 'string');
-  console.log(allSquaresFilled);
 
   if (playerWins === true) {
     console.log("Player Wins!");
     playerScore += 1;
-    return 1;
+    return true;
   } else if (computerWins === true) {
     console.log("Computer Wins!");
     computerScore += 1;
-    return 0;
-  } else if (allSquaresFilled === true) {
-    console.log("Its a tie");
-    return 2;
+    return true;
+  } else {
+    return null;
   }
 }
 
@@ -157,8 +165,8 @@ function playAgain(play) {
   }
 
   if (againResponse === 'yes') {
-    newGame();
     console.clear();
+    newGame();
     return true;
   } else {
     console.log('Thanks for Playing!');
