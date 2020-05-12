@@ -78,7 +78,7 @@ function initializeDeck() {
     } else if (cardCount[newCard] < 4) {
       cardCount[newCard] += 1;
     }
-    deck.push(newCard);
+    deck.push(newCard)
   }
   console.log("Deck Shuffled\n");
   return deck
