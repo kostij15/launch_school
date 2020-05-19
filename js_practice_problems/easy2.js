@@ -82,8 +82,8 @@ const multiply = (num1, num2) => num1 * num2;
 // console.log(evenities([2, 3, 4, 5, 6]));
 
 //9. Convert a String to a Number!
-
-// const stringToInteger = (str, base) => {
+// ************COME BACK TO THIS!!!!!!!!!!!!*************
+// const stringToInteger = (str) => {
 //   const NUMBER = {
 //     0: 0,
 //     1: 1,
@@ -99,7 +99,7 @@ const multiply = (num1, num2) => num1 * num2;
 //   let finalNum = 0;
 
 //   str.split('').reverse().forEach((char, index) => {
-//     let currentNum = NUMBER[char] * (base ** index);
+//     let currentNum = NUMBER[char] * (10 ** index);
 //     finalNum += currentNum;
 //   })
 
@@ -110,3 +110,17 @@ const multiply = (num1, num2) => num1 * num2;
 // console.log(stringToInteger("570") === 570); // logs true
 
 //10. Convert a String to a Signed Number!
+
+// function stringToSignedInteger(str) {
+//   if (str[0] === '-') {
+//     return -stringToInteger(str.slice(1));
+//   } else if (str[0] === '+') {
+//     return stringToInteger(str.slice(1));
+//   } else {
+//     return stringToInteger(str);
+//   }
+// }
+
+// console.log(stringToSignedInteger("4321") === 4321); // logs true
+// console.log(stringToSignedInteger("-570") === -570); // logs true
+// console.log(stringToSignedInteger("+100") === 100)
