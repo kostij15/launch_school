@@ -76,7 +76,37 @@ const multiply = (num1, num2) => num1 * num2;
 // console.log(oddities([123])); // logs [123]
 // console.log(oddities([]));
 //8. Even Index Lists
-function evenities(arr) {
-  return arr.filter((_, index) => index % 2 !== 0);
-}
-console.log(evenities([2, 3, 4, 5, 6]));
+// function evenities(arr) {
+//   return arr.filter((_, index) => index % 2 !== 0);
+// }
+// console.log(evenities([2, 3, 4, 5, 6]));
+
+//9. Convert a String to a Number!
+
+// const stringToInteger = (str, base) => {
+//   const NUMBER = {
+//     0: 0,
+//     1: 1,
+//     2: 2,
+//     3: 3,
+//     4: 4,
+//     5: 5,
+//     6: 6,
+//     7: 7,
+//     8: 8,
+//     9: 9
+//   };
+//   let finalNum = 0;
+
+//   str.split('').reverse().forEach((char, index) => {
+//     let currentNum = NUMBER[char] * (base ** index);
+//     finalNum += currentNum;
+//   })
+
+//   return finalNum;
+// }
+
+// console.log(stringToInteger("4321") === 4321); // logs true
+// console.log(stringToInteger("570") === 570); // logs true
+
+//10. Convert a String to a Signed Number!
