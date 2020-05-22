@@ -124,3 +124,18 @@ const multiply = (num1, num2) => num1 * num2;
 // console.log(stringToSignedInteger("4321") === 4321); // logs true
 // console.log(stringToSignedInteger("-570") === -570); // logs true
 // console.log(stringToSignedInteger("+100") === 100)
+
+//11. Convert a Number to a String!
+function integerToString(num) {
+  const intToStr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+
+  let result = [];
+
+  while (num > 0) {
+    num = num % 10;
+    result.push(num);
+  }
+  return result.reverse().join('');
+
+}
+integerToString(4321); 
