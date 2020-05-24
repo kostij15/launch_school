@@ -192,9 +192,9 @@ const HOURS_PER_DAY = 24;
 const MINUTES_PER_DAY = HOURS_PER_DAY * MINUTES_PER_HOUR;
 
 function afterMidnight(time) {
-  let timeArr = time.split(':');
-  let hourToMinutes = Number(timeArr[0]) * MINUTES_PER_HOUR;
-  let minutes = Number(timeArr[1]);
+  let timeArr = time.split(':').map(num => Number(num));
+  let hourToMinutes = timeArr[0] * MINUTES_PER_HOUR;
+  let minutes = timeArr[1];
 
   return (hourToMinutes + minutes) % MINUTES_PER_DAY;
 }
