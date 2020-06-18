@@ -139,47 +139,174 @@
 //2. run a for loop through one of the arrays
 // 3. compare that wi
 
-const merge = (array1, array2) => {
-  //My solution
-  // let newArray = [];
-  // let placeholder = 0;
+// const merge = (array1, array2) => {
+//   //My solution
+//   // let newArray = [];
+//   // let placeholder = 0;
 
-  // arrayComparison(array1, array2, newArray);
-  // arrayComparison(array2, newArray, newArray);
-  // console.log(newArray);
+//   // arrayComparison(array1, array2, newArray);
+//   // arrayComparison(array2, newArray, newArray);
+//   // console.log(newArray);
 
-  //Their Solution
-  let copyArr1 = array1.slice();
-  let copyArr2 = array2.slice();
+//   //Their Solution
+//   let copyArr1 = array1.slice();
+//   let copyArr2 = array2.slice();
 
-  let mergedSorted = [];
+//   let mergedSorted = [];
 
-  while (copyArr1.length > 0 && copyArr2.length > 0) {
-    mergedSorted.push(copyArr1[0] <= copyArr2[0] ? copyArr1.shift() : copyArr2.shift());
-  }
+//   while (copyArr1.length > 0 && copyArr2.length > 0) {
+//     mergedSorted.push(copyArr1[0] <= copyArr2[0] ? copyArr1.shift() : copyArr2.shift());
+//   }
 
-  return mergedSorted.concat(copyArr1.length === 0 ? copyArr2 : copyArr1);
-}
-
-// function arrayComparison(array1, array2, newArray) {
-// My Solution
-// array1.forEach(elem1 => {
-//   placeholder = 0;
-//   array2.forEach(elem2 => {
-//     if (elem1 < elem2 || elem2 === undefined) {
-//     } else {
-//       placeholder += 1;
-//     }
-//   });
-//   newArray.splice(placeholder, 0, elem1);
-// });
+//   return mergedSorted.concat(copyArr1.length === 0 ? copyArr2 : copyArr1);
 // }
 
-// console.log(merge([1, 5, 9], [2, 6, 8]));      // [1, 2, 5, 6, 8, 9]
+// function merge(arr1, arr2) {
+//   let copyArr1 = arr1.slice();
+//   let copyArr2 = arr2.slice();
 
-//Merge Sort
-//input array
-//output sorted array
-// Rules
-// 1. Must first break down array into nested subarrays
-// 2. Build array into nested arrays
+//   let sortedList = [];
+
+//   while (copyArr1.length > 0 && copyArr2.length > 0) {
+//     sortedList.push(copyArr1[0] <= copyArr2[0] ? copyArr1.shift() : copyArr2.shift());
+//   }
+
+//   console.log(sortedList);
+//   return sortedList;
+// }
+
+// // merge([1, 5, 9], [2, 6, 8]);
+
+// //Merge Sort
+// function mergeSort(arr) {
+//   if (arr.length === 1) return arr;
+
+//   let subArrayOne = arr.slice(0, arr.length / 2);
+//   let subArrayTwo = arr.slice(arr.length / 2);
+//   subArrayOne = merge(subArrayOne);
+//   subArrayTwo = merge(subArrayTwo);
+
+//   console.log(merge(subArrayOne, subArrayTwo));
+//   return merge(subArrayOne, subArrayTwo);
+
+// }
+
+// Examples:
+
+// mergeSort([9, 5, 7, 1]);           // [1, 5, 7, 9]
+// mergeSort([5, 3]);                 // [3, 5]
+// mergeSort([6, 2, 7, 1, 4]); 
+
+//Binary Search
+
+//input: sorted array
+// output: index of search value
+
+//Rules:
+// 1. all arrays are previously sorted.
+//2. Must look in the middle of the array
+//3. if middle value is less than lookup value then remove the bottom half including middle
+//4. if middle value is greater than lookup value then remove the top half
+
+//Data Structures
+//array
+
+//Algorithm
+//1. Find middle of array
+//2. Go to middle of array
+//3. Compare element with look-up vlaue
+//4. if they are equal then return index
+//5. if not compare it with the middle value
+//6. if middle value is greater than look-up, remove all elements lower than that
+//7. else do the opposite
+//8. repeat steps 1-3 until we find value
+
+// const binarySearch = (array, searchItem) => {
+//   let copiedArray = array.slice();
+//   let low = 0;
+//   let high = array.length;
+
+
+//   while (low <= high) {
+//     searchIndex = low + Math.floor((high - low) / 2);
+
+//     if (array[searchIndex] === searchItem) {
+//       return searchIndex;
+//     } else if (array[searchIndex] < searchItem) {
+//       low = searchIndex + 1;
+//     } else {
+//       high = searchIndex - 1;
+//     }
+//     copiedArray = copiedArray.slice(low, high);
+
+//   }
+
+//   return -1;
+// }
+
+// // let yellowPages = ['Apple Store', 'Bags Galore', 'Bike Store', 'Donuts R Us', 'Eat a Lot', 'Good Food', 'Pasta Place', 'Pizzeria', 'Tiki Lounge', 'Zooper'];
+// // console.log(binarySearch(yellowPages, 'Pizzeria'));
+// // console.log(binarySearch(yellowPages, 'Apple Store'));
+
+// console.log(binarySearch([1, 5, 7, 11, 23, 45, 65, 89, 102], 5));
+// console.log(binarySearch(['Alice', 'Bonnie', 'Kim', 'Pete', 'Rachel', 'Sue', 'Tyler'], 'Peter'));
+// binarySearch(['Alice', 'Bonnie', 'Kim', 'Pete', 'Rachel', 'Sue', 'Tyler'], 'Tyler');
+
+//Egyptian Fractions
+//input: Fraction
+//output: Array
+//Rules
+//1. All entries must be a unit fraction
+//2. All array entries are the denominator of the function
+//3. 
+
+//Data Structures
+// Array
+
+//Algorithm
+//1. determine the numeric result of the fraction.
+//2. run a loop
+//3. within that loop add 
+// const Fraction = require('fraction.js');
+
+// let f = new Fraction('1/2');
+
+// const egyptian = (fraction) => {
+//   let denominator = 1;
+
+//   let denominatorArray = [];
+
+//   while (fraction > 0) {
+//     let unitFraction = new Fraction(1, denominator);
+
+//     // console.log(unitFraction, round(total, 3))
+
+//     if (unitFraction <= fraction) {
+//       denominatorArray.push(denominator);
+//       fraction = fraction.sub(unitFraction);
+//     }
+//     denominator += 1;
+//   }
+
+//   return denominatorArray;
+// }
+
+// function round(number, decimal = 0) {
+//   return decimal === 0 ? parseInt(number) : parseFloat(number.toFixed(decimal));
+// }
+
+// function unegyptian(array) {
+//   return array.reduce((total, denominator) => total + Fraction(1, denominator), new Fraction(0));
+// }
+
+// console.log(egyptian(new Fraction(3, 1)));
+
+//Madlibs Revisted
+function madLibs(template) {
+  const replacementText = {
+    adjectives: ['quick', 'azy', 'sleepy', 'noisy', 'hungry'],
+    nouns: ['fox', 'dog', 'head', 'leg', 'tail', 'cat'],
+    verbs: ['jumps', 'lifts', 'bites', 'licks', 'pats'],
+    adverbs: ['easily', 'lazily', 'noisily', 'excitedly']
+  };
+}

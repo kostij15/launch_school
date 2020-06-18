@@ -54,73 +54,109 @@
 //2. loop up until the max number of diamonds.
 //3. at the inflection point should be where there are the max number of diamonds
 //4. all else will be max_num
-const diamond = number => {
-  let half = Math.floor(number / 2);
-  let array = [1];
-  for (let i = 1; i < number; i++) {
-    if (i === 0);
-    if (i <= half) {
-      array.push(array[i - 1] + 2);
-    } else {
-      array.push(array[i - 1] - 2);
-    }
-  }
+// const diamond = number => {
+//   let half = Math.floor(number / 2);
+//   let array = [1];
+//   for (let i = 1; i < number; i++) {
+//     if (i === 0);
+//     if (i <= half) {
+//       array.push(array[i - 1] + 2);
+//     } else {
+//       array.push(array[i - 1] - 2);
+//     }
+//   }
 
-  diamondOutput(array);
-}
+//   diamondOutput(array);
+// }
 
-function diamondOutput(array) {
-  let spaces;
-  let stars;
+// function diamondOutput(array) {
+//   let spaces;
+//   let stars;
 
-  array.forEach(elem => {
-    stars = '*'.repeat(elem);
-    spaces = ' '.repeat((array.length - elem) / 2);
+//   array.forEach(elem => {
+//     stars = '*'.repeat(elem);
+//     spaces = ' '.repeat((array.length - elem) / 2);
 
-    console.log(spaces + stars + spaces)
-  });
-}
+//     console.log(spaces + stars + spaces)
+//   });
+// }
 
-diamond(9);
+// diamond(9);
 
-//3. Now I Know My ABCs
-//input -> a string
-//output -> boolean determining whether word contains more than one block
-//rules
-//1. 13 block letters
-//2.if the block contains any two letters than its false
-//3.if they don't contain any letters than its true
-//4. if a block is used more than once (e.g. the letters are used more than once) than false
-//5. case doesn't matter
+//Now I know My ABCs
+//input: string
+//output: boolean
+
+//Rules:
+//1. Must spell block with only one of the letters
+//2. You can only use each block once.
+//3. If word can be spelled using the set of blocks following the above then true
 
 //Data Structures
-//Blocks: Two Arrays with corresponding indicies
-//String: needs to be parsed into array and then searched
+//array for block filled with string pairs as each index
 
 //Algorithm
+//Convert word to array
+//run a loop/forEach
+//if letter is included in block, remove the block
+//if we cant find the block then return false as it has already been used in word
+// function isBlockWord(word) {
+//   let block = ['bo', 'xk', 'dq', 'cp', 'na', 'gt', 're', 'fs', 'jw', 'hu', 'vi', 'ly', 'zm'];
 
-// function isBlockWord(string) {
-//   let blockLetters = ['BO', 'XK', 'DQ', 'CP', 'NA', 'GT', 'RE', 'FS', 'JW', 'HU', 'VI', 'LY', 'ZM'];
-//   let stringArray = string.toUpperCase().split('');
+//   let wordArr = word.toLowerCase().split('');
 
-//   for (let i = 0; i < stringArray.length; i++) {
-//     let foundIndex = blockLetters.findIndex(blocks => blocks.includes(stringArray[i]));
-//     // console.log(foundIndex)
-//     if (foundIndex === -1) {
-//       return false;
-//     }
-//     blockLetters.splice(foundIndex, 1);
+//   for (let i = 0; i < wordArr.length; i++) {
+//     let removedIndex = block.findIndex(spellingBlock => spellingBlock.includes(wordArr[i]));
+
+//     if (removedIndex === -1) return false;
+//     block.splice(removedIndex, 1);
 
 //   }
 //   return true;
 // }
 
-
 // console.log(isBlockWord('BATCH'));      // true
-// console.log(isBlockWord('BUTCH'));
+// console.log(isBlockWord('BUTCH'));      // false
 // console.log(isBlockWord('jest'));       // true
-// console.log(isBlockWord('floW'));       // true
-// console.log(isBlockWord('APPLE'));      // false
-// console.log(isBlockWord('apple'));      // false
-// isBlockWord('apPLE');      // false
-// console.log(isBlockWord('Box')); 
+
+//Seeing Stars
+//input: Number
+//ouput: logged stars
+
+//Rules
+//1. Number has to be odd
+//2. Smallest number of stars needs to be 7
+//3. Add a new row of three by three stars seprated by Math.floor((num - 3) /2)
+
+const star = number => {
+  const SPACE = ' ';
+  const STAR = '*';
+  const NUM_SPACES = (number - 3) / 2;
+  const MAX_STAR_INDEX = Math.floor(number / 2);
+
+  if (number % 2 === 0) console.log('Please choose an odd number.');
+
+  let insideSpaceList = Array(number).fill().map((elem, index) => {
+    if (index < MAX_STAR_INDEX) {
+      return NUM_SPACES - index;
+    } else if (index > MAX_STAR_INDEX) {
+      return NUM_SPACES - (number - index) + 1;
+    } else {
+      return 0;
+    }
+  })
+  console.log(insideSpaceList);
+
+  insideSpaceList.forEach((numInsideSpaces, index) => {
+    let numOutsideSpaces = NUM_SPACES - numInsideSpaces;
+
+    if (index === MAX_STAR_INDEX) {
+      console.log(STAR.repeat(number));
+    } else {
+      console.log(`${SPACE.repeat(numOutsideSpaces)}${STAR}${SPACE.repeat(numInsideSpaces)}${STAR}${SPACE.repeat(numInsideSpaces)}${STAR}${SPACE.repeat(numOutsideSpaces)}`);
+    }
+  })
+
+}
+
+star(9);
