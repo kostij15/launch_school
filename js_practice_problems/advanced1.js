@@ -301,12 +301,101 @@
 
 // console.log(egyptian(new Fraction(3, 1)));
 
-//Madlibs Revisted
-function madLibs(template) {
-  const replacementText = {
-    adjectives: ['quick', 'azy', 'sleepy', 'noisy', 'hungry'],
-    nouns: ['fox', 'dog', 'head', 'leg', 'tail', 'cat'],
-    verbs: ['jumps', 'lifts', 'bites', 'licks', 'pats'],
-    adverbs: ['easily', 'lazily', 'noisily', 'excitedly']
-  };
+//Transpose 3x3 Matrix
+//input: nested array
+//output: nested array
+
+//Rules:
+//1. Array must be transposed
+
+//Algorithm
+//1. Create an empty array called transposedArray
+//2. Create three subarrays within transposedArray
+//2. create a for loop of the array
+//3. create a second loop within the first
+//4. use array destructuring to set let [transposedArray[i][j], transposedArray[j][i]] = [transposedArray[j][i], transposedArray[i][j]]
+
+function transpose(array) {
+  let rows = array.length;
+  let columns = array[0].length;
+
+  let transposedArray = Array(columns).fill().map(elem => []);
+
+  for (let row = 0; row < array[0].length; row++) {
+    for (let col = 0; col < array.length; col++) {
+      transposedArray[row][col] = array[col][row];
+      //console.log(row, col)
+      // console.log(transposedArray);
+    }
+  }
+  //console.log(transposedArray)
+  return transposedArray;
 }
+
+let matrix = [
+  [3, 7, 4, 2],
+  [5, 1, 0, 8],
+];
+
+transpose(matrix);
+// transpose([[1, 2, 3, 4]]);            // [[1], [2], [3], [4]]
+// transpose([[1], [2], [3], [4]]);      // [[1, 2, 3, 4]]
+// transpose([[1]]);
+
+// function rotate90(array) {
+//   return transpose(array).map(subArr => subArr.reverse());
+// }
+
+
+// let matrix1 = [
+//   [1, 5, 8],
+//   [4, 7, 2],
+//   [3, 9, 6],
+// ];
+
+// let matrix2 = [
+//   [3, 7, 4, 2],
+//   [5, 1, 0, 8],
+// ];
+
+// let newMatrix1 = rotate90(matrix1);
+// let newMatrix2 = rotate90(matrix2);
+// let newMatrix3 = rotate90(rotate90(rotate90(rotate90(matrix2))));
+
+// console.log(newMatrix1);      // [[3, 4, 1], [9, 7, 5], [6, 2, 8]]
+// console.log(newMatrix2);      // [[5, 3], [1, 7], [0, 4], [8, 2]]
+// console.log(newMatrix3);      //
+
+//Merge Sorted Lists
+const merge = (array1, array2) => {
+  let mergedArray = [];
+  let maxLength = array1.length + array2.length;
+
+  while (array1.length > 0 && array2.length > 0) {
+    mergedArray.push(array1[0] < array2[0] ? array1.shift() : array2.shift());
+  }
+
+  mergedArray = mergedArray.concat(array1.length === 0 ? array2 : array1);
+  console.log(mergedArray);
+
+  return mergedArray;
+}
+
+// merge([1, 5, 9], [2, 6, 8]);      // [1, 2, 5, 6, 8, 9]
+// merge([1, 1, 3], [2, 2]);         // [1, 1, 2, 2, 3]
+// merge([], [1, 4, 5]);             // [1, 4, 5]
+// merge([1, 4, 5], []);             // [1, 4, 5]
+
+//Merge Sort
+//Algorithm
+//1.  
+function mergeSort(array) {
+  let copyArray = array.map(elem => [elem]);
+  let count = 0;
+
+  while (!Array.isArray(copyArray[0])) {
+    copyArray[0].concat()
+  }
+}
+
+mergeSort([6, 2, 7, 1, 4]);
