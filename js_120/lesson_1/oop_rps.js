@@ -26,10 +26,15 @@ const CHOICES = ['rock', 'paper', 'scissors', 'lizard', 'spock'];
 function createPlayer() {
   return {
     move: null,
+    previousMoves: [],
     score: 0,
 
     incrementScore() {
       this.score += 1;
+    },
+
+    addPreviousMove(previousMove) {
+      this.previousMoves.push(previousMove);
     },
   };
 }
@@ -80,7 +85,7 @@ const RPSGame = {
   computer: createComputer(),
 
   displayWelcomeMessage() {
-    console.log("Welcome to Rock, Paper, Scissors!");
+    console.log("Welcome to Rock, Paper, Scissors, Lizard, SPOCCKKK!");
   },
 
   displayWinner() {
@@ -89,17 +94,36 @@ const RPSGame = {
 
     if ((this.human.move === 'rock' && this.computer.move === 'scissors') ||
       (this.human.move === 'paper' && this.computer.move === 'rock') ||
-      (this.human.move === 'scissors' && this.computer.move === 'paper')) {
+      (this.human.move === 'scissors' && this.computer.move === 'paper') ||
+      (this.human.move === 'scissors' && this.computer.move === 'lizard') ||
+      (this.human.move === 'lizard' && this.computer.move === 'spock') ||
+      (this.human.move === 'lizard' && this.computer.move === 'paper') ||
+      (this.human.move === 'spock' && this.computer.move === 'rock') ||
+      (this.human.move === 'spock' && this.computer.move === 'scissors') ||
+      (this.human.move === 'rock' && this.computer.move === 'lizard')) {
       console.log('Player Wins!');
       this.human.incrementScore();
     } else if ((this.computer.move === 'rock' && this.human.move === 'scissors') ||
       (this.computer.move === 'paper' && this.human.move === 'rock') ||
-      (this.computer.move === 'scissors' && this.human.move === 'paper')) {
+      (this.computer.move === 'scissors' && this.human.move === 'paper') ||
+      (this.computer.move === 'scissors' && this.human.move === 'lizard') ||
+      (this.computer.move === 'lizard' && this.human.move === 'spock') ||
+      (this.computer.move === 'lizard' && this.human.move === 'paper') ||
+      (this.computer.move === 'spock' && this.human.move === 'rock') ||
+      (this.computer.move === 'spock' && this.human.move === 'scissors') ||
+      (this.computer.move === 'rock' && this.human.move === 'lizard')) {
       console.log('Computer wins');
       this.computer.incrementScore();
     } else {
       console.log("It's a tie!");
     }
+
+    this.human.addPreviousMove(this.human.move);
+    this.computer.addPreviousMove(this.computer.move);
+  },
+
+  displayPreviousMoves() {
+    console.log(`Your opponents previous moves: ${this.computer.previousMoves}`);
   },
 
   displayGoodbyeMessage() {
@@ -131,6 +155,7 @@ const RPSGame = {
         this.displayGoodbyeMessage();
         break
       }
+      this.displayPreviousMoves();
     }
   },
 };
