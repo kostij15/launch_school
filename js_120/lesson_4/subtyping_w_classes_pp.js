@@ -57,3 +57,5 @@ class WheeledVehicle {
   range() {
     return this.fuelCap * this.fuelEfficiency;
   }
+
+}
