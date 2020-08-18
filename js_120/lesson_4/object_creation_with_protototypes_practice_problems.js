@@ -1,25 +1,34 @@
-const PetPrototype = {
+//1. Use factory functions
+
+function createPet(animal, name) {
+  return {
+    animal,
+    name,
+
+    sleep() {
+      console.log('I am sleeping');
+    },
+
+    wake() {
+      console.log('I am awake');
+    }
+  }
+}
+
+//2. Use OLOO Pattern to create object prototype
+
+let PetPrototype = {
   init(animal, name) {
     this.animal = animal;
     this.name = name;
     return this;
   },
 
-  sleep: function () {
-    console.log("I am sleeping");
+  sleep() {
+    console.log('I am sleeping');
   },
 
-  wake: function () {
-    console.log("I am awake");
+  wake() {
+    console.log('I am awake');
   },
-};
-
-let pudding = Object.create(PetPrototype).init("Cat", "Pudding");
-console.log(`I am a ${pudding.animal}. My name is ${pudding.name}.`);
-pudding.sleep(); // I am sleeping
-pudding.wake();  // I am awake
-
-let neptune = Object.create(PetPrototype).init("Fish", "Neptune");
-console.log(`I am a ${neptune.animal}. My name is ${neptune.name}.`);
-neptune.sleep(); // I am sleeping
-neptune.wake();  // I am awake
+}
