@@ -63,6 +63,8 @@ class Participant {
     return `${array.slice(0, -1).join(', ')} and ${array.slice(-1)}`;
   }
 
+  static maxHandTotal = 21;
+
   constructor(hand) {
     this.hand = hand || [];
   }
@@ -78,7 +80,7 @@ class Participant {
 }
 
 class Dealer extends Participant {
-  static dealerMinHandTotal = 17;
+  static minHandTotal = 17;
 
   constructor(hand) {
     super(hand);
@@ -86,8 +88,39 @@ class Dealer extends Participant {
 }
 
 class Player extends Participant {
+  static minCash = 0;
+  static maxCash = 10;
+
   constructor(hand) {
     super(hand);
+    this.purse = 5;
+  }
+
+  incrementCash() {
+    this.purse += 1;
+  }
+
+  decrememntCash() {
+    this.purse -= 1;
+  }
+
+  displayCash() {
+    console.log(`Your Current Cash Total: \$${this.purse}`);
+  }
+
+  hasNoCash() {
+    return this.purse <= Player.minCash;
+  }
+
+  hasTooMuchCash() {
+    return this.purse >= Player.maxCash;
+  }
+}
+
+class UnicodeValues {
+  static emoji = {
+    shrug: String.fromCodePoint("0x1F937"),
+    angry: String.fromCodePoint("0x1F620"),
   }
 }
 
@@ -118,12 +151,21 @@ class TOGame {
         this.displayFinalCards();
         break;
       }
-      this.determineWinner();
+      this.displayWinner();
+
+      this.updateCash();
+      this.displayPlayerCash();
+
+      if (this.isGameOver()) break;
 
       if (!this.playAgain()) break;
     }
 
-    this.displayGoodbyeMessage();
+    if (this.isGameOver()) {
+      this.displayGameOverMessage();
+    } else {
+      this.displayGoodbyeMessage();
+    }
   }
 
   displayWelcomeMessage() {
@@ -138,6 +180,8 @@ class TOGame {
   }
 
   displayCards() {
+    console.clear();
+
     console.log(`Dealer's Hand: ${this.dealer.hand[1]} and Unknown`);
     console.log(`Player's Hand: ${Participant.joinAnd(this.player.hand)}`);
   }
@@ -150,7 +194,7 @@ class TOGame {
     const removingAceHigh = 10;
     let total = participant.hand.reduce((sum, card) => sum + Card.cardValue[card], 0)
 
-    if (participant.detectAce() && total > 21) {
+    if (participant.detectAce() && total > Participant.maxHandTotal) {
       total -= removingAceHigh;
     }
 
@@ -158,7 +202,15 @@ class TOGame {
   }
 
   isBust(participant) {
-    return this.handTotal(participant) > 21;
+    return this.handTotal(participant) > Participant.maxHandTotal;
+  }
+
+  isTwentyOne(participant) {
+    return this.handTotal(participant) === Participant.maxHandTotal;
+  }
+
+  isCurrentHandOver(participant) {
+    return this.isBust(participant) || this.isTwentyOne(participant);
   }
 
   displayParticipantHand(participant, finalHand = false) {
@@ -176,7 +228,7 @@ class TOGame {
       this.displayParticipantHand(this.player);
       let answer;
 
-      while (true) {
+      while (!this.isCurrentHandOver(this.player)) {
         answer = READLINE.question('Would you like to hit or stay?\n').toLowerCase();
 
         if (validChoices.includes(answer)) break;
@@ -185,21 +237,22 @@ class TOGame {
         console.log('');
       }
 
-      if (answer === 's') break;
-
-      this.hit(this.player);
+      if (answer === 'h') {
+        this.hit(this.player);
+      } else {
+        break;
+      }
     }
   }
 
   dealersTurn() {
     while (true) {
-      if (this.isBust(this.dealer)) break;
-
       this.displayParticipantHand(this.dealer);
 
       let dealerTotal = this.handTotal(this.dealer);
 
-      if (dealerTotal >= Dealer.dealerMinHandTotal) break;
+      if (dealerTotal >= Dealer.minHandTotal || this.isCurrentHandOver(this.dealer)) break;
+
       this.hit(this.dealer);
 
     }
@@ -207,8 +260,8 @@ class TOGame {
   }
 
   displayFinalCards() {
+    console.log("We have our final hands!\n");
     this.displayParticipantHand(this.dealer, true);
-    console.log('');
     this.displayParticipantHand(this.player, true);
     console.log('');
   }
@@ -217,18 +270,72 @@ class TOGame {
     let finalDealerTotal = this.handTotal(this.dealer);
     let finalPlayerTotal = this.handTotal(this.player);
 
-    if (!this.isBust(this.player) && finalPlayerTotal > finalDealerTotal) {
+    if ((!this.isBust(this.player) && finalPlayerTotal > finalDealerTotal) || this.isBust(this.dealer)) {
+      return 'player';
+    } else if ((!this.isBust(this.dealer) && finalDealerTotal > finalPlayerTotal) || this.isBust(this.player)) {
+      return 'dealer';
+    } else {
+      return;
+    }
+  }
+
+  displayWinner() {
+    if (this.determineWinner() === 'player') {
       console.log('Congratulations you win! Shots on the house!\n');
-    } else if (!this.isBust(this.dealer) || finalDealerTotal > finalPlayerTotal) {
-      console.log('Dealer Wins! Additional chips provided at the Cashier Services booth.\n')
+    } else if (this.determineWinner() === 'dealer') {
+      console.log('Dealer Wins! Additional chips provided at the Cashier Services booth.\n');
     } else {
       console.log('It is a push! You get your money back. How about another drink?\n');
     }
     console.log('');
   }
 
+  updateCash() {
+    if (this.determineWinner() === 'player') {
+      this.player.incrementCash();
+    } else if (this.determineWinner() === 'dealer') {
+      this.player.decrememntCash();
+    }
+  }
+
+  displayPlayerCash() {
+    this.player.displayCash();
+  }
+
+  isGameOver() {
+    return this.player.hasNoCash() || this.player.hasTooMuchCash();
+  }
+
+  displayGameOverMessage() {
+    if (this.player.hasNoCash()) {
+      console.log(`On the bright side you tried hard ${UnicodeValues.emoji['shrug']}`);
+    } else if (this.player.hasTooMuchCash()) {
+      console.log(`You've seen the movie Casino right? Get out! ${UnicodeValues.emoji['angry']}`);
+    }
+  }
+
   displayGoodbyeMessage() {
     console.log("Aww leaving so soon! Drive safe and come back soon!");
+  }
+
+  playAgainMessages(cashTotal) {
+    switch (cashTotal) {
+      case 1:
+        console.log("Don't worry. Your spouse won't even know. One more time for old times sake?\n");
+        break;
+      case 2:
+        console.log("The local coffee shop will survive without this dollar. Try it again... you never know.\n");
+        break;
+      case 8:
+        console.log("I'm starting to think this isn't luck. Play one more time.\n");
+        break;
+      case 9:
+        console.log("Security come over to this table. I need a second set of eyes. Go ahead play again.\n");
+        break;
+      default:
+        console.log("Come on! One more time never hurt! Want to play again?\n")
+        break;
+    }
   }
 
   playAgain() {
@@ -236,7 +343,7 @@ class TOGame {
     let again;
 
     while (true) {
-      again = READLINE.question("Come on! One more time never hurt! Want to play again?\n").toLowerCase();
+      again = READLINE.question(this.playAgainMessages(this.player.purse)).toLowerCase();
 
       if (validChoices.includes(again)) break;
 
