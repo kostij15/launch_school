@@ -20,8 +20,7 @@
 // console.log(rect1.area);
 // console.log(rect1.perimeter);
 
-//3. Write a constructor function called Circle that takes a radius as an argument
-// area as a meathd
+//3. Circle
 
 // function Circle(radius) {
 //   this.radius = radius;
@@ -36,7 +35,7 @@
 
 // console.log(a.area().toFixed(2)); // => 28.27
 // console.log(b.area().toFixed(2)); // => 50.27
-// a.hasOwnProperty('area'); // => false
+// console.log(a.hasOwnProperty('area')); // => false
 
 //6.
 
@@ -44,17 +43,19 @@
 //   this.swung = false;
 // }
 
+// // Add a swing method to the Ninja prototype which
+// // modifies `swung` and returns the calling object
+
 // Ninja.prototype.swing = function () {
 //   this.swung = true;
-
-//   return this;
+//   return this
 // }
 
 // let ninjaA = new Ninja();
 // let ninjaB = new Ninja();
 
 // console.log(ninjaA.swing().swung);      // logs `true`
-// console.log(ninjaB.swing().swung);   
+// console.log(ninjaB.swing().swung);      // logs `true`
 
 //7.
 
@@ -69,28 +70,28 @@
 // }
 
 // // create a `ninjaB` object here; don't change anything else
-// let ninjaB = new ninjaA.constructor;
 
-// console.log(ninjaB.swung);
+// let ninjaB = new ninjaA.constructor();
+// console.log(ninjaA);
+// console.log(ninjaB)
+
 // console.log(ninjaA.constructor === ninjaB.constructor) // => true
 
-//8.  Write a constructor function that you can use with or without the new operator.
-// The function should return the same result with either form
+//8. Create a function that you can use with or without the new operator
+function User(first, last) {
+  if (!(this instanceof User)) {
+    return new User(first, last);
+  }
 
-// function User(first, last) {
-//   if (!(this instanceof User)) {
-//     return new User(first, last);
-//   }
+  this.first = first;
+  this.last = last;
+  this.name = `${this.first} ${this.last}`
+}
 
-//   this.first = first;
-//   this.last = last;
-//   this.name = this.first.concat(' ', this.last);
-// }
+let name = 'Jane Doe';
+let user1 = new User('John', 'Doe');
+let user2 = User('John', 'Doe');
 
-// let name = 'Jane Doe';
-// let user1 = new User('John', 'Doe');
-// let user2 = User('John', 'Doe');
-
-// console.log(name);         // => Jane Doe
-// console.log(user1.name);   // => John Doe
-// console.log(user2.name);   // => John Doe
+console.log(name);         // => Jane Doe
+console.log(user1.name);   // => John Doe
+console.log(user2.name);   // => John Doe

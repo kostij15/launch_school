@@ -1,6 +1,4 @@
-//2.Create a class named Greeting that has a single method named greet.
-//The method should take a string argument, 
-//and it should print that argument to the console.
+//2.
 
 // class Greeting {
 //   greet(str) {
@@ -10,33 +8,21 @@
 
 // class Hello extends Greeting {
 //   hi() {
-//     this.greet('Hello');
+//     super.greet('Hello');
 //   }
 // }
 
 // let Goodbye = class extends Greeting {
 //   bye() {
-//     this.greet('Goodbye');
+//     super.greet('Goodbye');
 //   }
 // }
 
-// let trej = new Greeting();
-// trej.greet('blerr');
+//3. Catamarans
 
-// let hej = new Hello();
-// hej.hi();
-
-// let bej = new Goodbye()
-// bej.bye(); 
-
-//3. Modify Catamarans code into a mix-in as needed
-class Catamaran extends WheeledVehicle {
-  constructor(propellerCount, hullCount, kmTravelledPerLiter, fuelCapInLiter) {
-    super([], kmTravelledPerLiter, fuelCapInLiter);
-
-    this.propellerCount = propellerCount;
-    this.hullCount = hullCount;
-  }
+let Fueled = {
+  fuelEfficiency,
+  fuelCap,
 }
 
 class WheeledVehicle {
@@ -57,3 +43,4 @@ class WheeledVehicle {
   range() {
     return this.fuelCap * this.fuelEfficiency;
   }
+}

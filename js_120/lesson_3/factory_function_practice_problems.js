@@ -1,23 +1,46 @@
+//2.
+function makeObj() {
+  return {
+    propA: 10,
+    propB: 20,
+  };
+}
+
 //3.
 
-//Rules
-// 1. Function factory needs to return an invoice Object w/ phone and internet as properties
-// and total as a method
-// 2. default value for phone = 3000, internet = 5500
-// 3. The function takes an object argument whose attributes override the default values.
+
+// let invoice = {
+//   phone: 3000,
+//   internet: 6500
+// };
+
+// let payment = {
+//   phone: 1300,
+//   internet: 5500
+// };
+
+// let invoiceTotal = invoice.phone + invoice.internet;
+// let paymentTotal = payment.phone + payment.internet;
+// let remainingDue = invoiceTotal - paymentTotal;
+
+// console.log(paymentTotal);         // => 6800
+// console.log(remainingDue);         // => 2700
+
+// properties should be internet, phone and total method
 
 // function createInvoice(services = {}) {
-//   let phoneService = services.hasOwnProperty('phone') ? services['phone'] : 3000;
-//   let internetService = services.hasOwnProperty('internet') ? services['internet'] : 5500;
+
+//   let phonePay = services.hasOwnProperty('phone') ? services.phone : 3000;
+//   let internetPay = services.hasOwnProperty('internet') ? services.internet : 5500;
 
 //   return {
-//     phone: phoneService,
-//     internet: internetService,
+//     phone: phonePay,
+//     internet: internetPay,
 
 //     total() {
 //       return this.phone + this.internet;
-//     },
-//   }
+//     }
+//   };
 // }
 
 // function invoiceTotal(invoices) {
@@ -41,92 +64,78 @@
 
 // console.log(invoiceTotal(invoices)); // 31000
 
-// let services = {}
-
-//4. Payments
-// Can take the following forms
-// Payment for one service, e.g., { internet: 1000 } or { phone: 1000 }.
-// Payment for both services, e.g., { internet: 2000, phone: 1000 }.
-// Payment with just an amount property, e.g., { amount: 2000 }.
-
-//function factory should return an object that has an amount paid for each serviece and total
-// if amount is present use amount as total else use the sum of the internet and phone charges
+//4 Build createPayment
+// internet, phone, total
+// if amount is present then amount else total
 
 function createPayment(services = {}) {
-  let hasAmount = services.hasOwnProperty('amount');
-  let phonePayment = services.hasOwnProperty('phone') ? services['phone'] : 0;
-  let internetPayment = services.hasOwnProperty('internet') ? services['internet'] : 0;
-
   return {
-    phonePayment,
-    internetPayment,
+    phone: services.hasOwnProperty('phone') ? services.phone : 0,
+    internet: services.hasOwnProperty('internet') ? services.internet : 0,
 
     total() {
-      if (hasAmount) return services['amount'];
-
-      return this.phonePayment + this.internetPayment;
+      return services.hasOwnProperty('amount') ? services.amount : this.phone + this.internet;
     }
   }
 }
 
+// function paymentTotal(payments) {
+//   return payments.reduce((sum, payment) => sum + payment.total(), 0);
+// }
 
-function paymentTotal(payments) {
-  return payments.reduce((sum, payment) => sum + payment.total(), 0);
-}
+// let payments = [];
+// payments.push(createPayment());
+// payments.push(createPayment({
+//   internet: 6500,
+// }));
 
-let payments = [];
-payments.push(createPayment());
-payments.push(createPayment({
-  internet: 6500,
-}));
+// payments.push(createPayment({
+//   phone: 2000,
+// }));
 
-payments.push(createPayment({
-  phone: 2000,
-}));
+// payments.push(createPayment({
+//   phone: 1000,
+//   internet: 4500,
+// }));
 
-payments.push(createPayment({
-  phone: 1000,
-  internet: 4500,
-}));
-
-payments.push(createPayment({
-  amount: 10000,
-}));
+// payments.push(createPayment({
+//   amount: 10000,
+// }));
 
 // console.log(paymentTotal(payments));      // => 24000
 
-//5. Update createInvoice function sot that it can add payment(s) to Invoices
-// need to add methods for addPayment, addPayments
+//5. Update createInvoice so that it can add payment(s) to invoices
 
 function createInvoice(services = {}) {
-  let phoneService = services.hasOwnProperty('phone') ? services['phone'] : 3000;
-  let internetService = services.hasOwnProperty('internet') ? services['internet'] : 5500;
+
+  let phonePay = services.hasOwnProperty('phone') ? services.phone : 3000;
+  let internetPay = services.hasOwnProperty('internet') ? services.internet : 5500;
 
   return {
-    phone: phoneService,
-    internet: internetService,
-    payments: 0,
+    phone: phonePay,
+    internet: internetPay,
+    payments: [],
+
+    addPayment(payment) {
+      this.payments.push(payment);
+    },
+
+    addPayments(payments) {
+      this.payments.push(...payments);
+    },
+
+    paymentTotal() {
+      return this.payments.reduce((total, payment) => total + payment.total(), 0);
+    },
 
     total() {
       return this.phone + this.internet;
     },
 
-    addPayment(paymentObj) {
-      this.payments += paymentObj.total();
-    },
-
-    addPayments(paymentArr) {
-      let totalPayment = paymentArr.reduce((sum, paymentObj) => {
-        return sum + paymentObj.total()
-      }, 0);
-
-      this.payments += totalPayment;
-    },
-
     amountDue() {
-      return this.total() - this.payments;
+      return this.total() - this.paymentTotal();
     }
-  }
+  };
 }
 
 invoice = createInvoice({

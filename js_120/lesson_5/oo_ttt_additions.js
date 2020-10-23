@@ -162,6 +162,10 @@ class TTTGame {
     this.board.markSquareAt(nextSquare, this.computer.getMarker())
   }
 
+  defensiveComputerMove() {
+
+  }
+
   potentialComputerWin() {
     let potentialWinner = TTTGame.POSSIBLE_WINNING_COMBINATIONS.filter(winningCombination => {
       return this.board.markerCount(this.computer, winningCombination) === 2;

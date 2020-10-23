@@ -1,26 +1,29 @@
-//1. Use factory functions
+//1. factory Function
 
-function createPet(animal, name) {
-  return {
-    animal,
-    name,
+// function createPet(animal, name) {
+//   return {
+//     animal,
+//     name,
 
-    sleep() {
-      console.log('I am sleeping');
-    },
+//     sleep() {
+//       console.log('I am sleeping');
+//     },
 
-    wake() {
-      console.log('I am awake');
-    }
-  }
-}
+//     wake() {
+//       console.log('I am awake');
+//     },
+//   }
+// }
 
-//2. Use OLOO Pattern to create object prototype
+// let pudding = createPet("Cat", "Pudding");
+
+//2. OLOO Pattern
 
 let PetPrototype = {
   init(animal, name) {
     this.animal = animal;
     this.name = name;
+
     return this;
   },
 
