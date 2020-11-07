@@ -6,56 +6,14 @@
 // }
 
 // class Truck extends Vehicle {
-//   constructor(year) {
+//   constructor(year, bedType) {
 //     super(year);
-//   }
-// }
-
-// let Car = class extends Vehicle {
-//   constructor(year) {
-//     super(year);
-//   }
-// }
-
-// let truck = new Truck(2003);
-// console.log(truck.year); // 2003
-
-// let car = new Car(2015);
-// console.log(car.year); // 2015
-
-//2. Start the Engine (part 1)
-
-// class Vehicle {
-//   constructor(year) {
-//     this.year = year;
-//   }
-// }
-
-// class Truck extends Vehicle {
-//   constructor(year) {
-//     super(year);
+//     this.bedType = bedType;
 //     this.startEngine();
 //   }
 
 //   startEngine() {
-//     console.log('Ready to go!');
-//   }
-// }
-
-// let truck = new Truck(2003);
-// console.log(truck.year); // 2003
-
-//3. Only Pass the Year
-// class Vehicle {
-//   constructor(year) {
-//     this.year = year;
-//   }
-// }
-
-// class Truck extends Vehicle {
-//   constructor(year, bedType) {
-//     super(year);
-//     this.bedType = bedType;
+//     console.log('Ready to go!')
 //   }
 // }
 
@@ -65,7 +23,11 @@
 // console.log(truck1.year);
 // console.log(truck1.bedType);
 
-//4. Start the Engine (part 2)
+// let car = new Car(2015);
+// console.log(car.year); // 2015
+// ;
+
+//Start the Engine (part 2 )
 // class Vehicle {
 //   startEngine() {
 //     return 'Ready to go!';
@@ -74,7 +36,7 @@
 
 // class Truck extends Vehicle {
 //   startEngine(speed) {
-//     return super.startEngine().concat(` Drive ${speed}, please!`);
+//     return `${super.startEngine()} Drive ${speed} please!`;
 //   }
 // }
 
@@ -84,10 +46,11 @@
 // let truck2 = new Truck();
 // console.log(truck2.startEngine('slow'));
 
-//5. Walk the Cat
+//Walk The Cat
+
 // let walkMixin = {
 //   walk() {
-//     return "Let's go for a walk!";
+//     return "Let's go for a walk!"
 //   }
 // }
 
@@ -100,14 +63,12 @@
 //     return `Hello! My name is ${this.name}!`;
 //   }
 // }
-
 // Object.assign(Cat.prototype, walkMixin);
 
 // let kitty = new Cat("Sophie");
 // console.log(kitty.greet());
 // console.log(kitty.walk());
 
-//6. Swimming
 // const swimMixin = {
 //   swim() {
 //     return `${this.name} is swimming.`;
@@ -117,17 +78,16 @@
 // class Fish {
 //   constructor(name) {
 //     this.name = name;
-//     Object.assign(this, swimMixin);
 //   }
 // }
-
+// Object.assign(Fish.prototype, swimMixin);
 
 // class Dog {
 //   constructor(name) {
 //     this.name = name;
-//     Object.assign(this, swimMixin);
 //   }
 // }
+// Object.assign(Dog.prototype, swimMixin);
 
 // class Maltese extends Dog { }
 
@@ -137,7 +97,7 @@
 // console.log(dog1.swim());
 // console.log(fish1.swim());
 
-//7. Towable (part 1)
+//Towable(part1)
 // let towMixin = {
 //   tow() {
 //     return 'I can tow a trailer!';
@@ -145,14 +105,14 @@
 // }
 
 // class Truck { }
-// Object.assign(Truck.prototype, towMixin);
+// Object.assign(Truck.prototype, towMixin)
 
 // class Car { }
 
 // let truck = new Truck();
-// truck.tow();
+// console.log(truck.tow());
 
-//8. Towable (part 2)
+//Towable (part 2)
 // const towMixin = {
 //   tow() {
 //     return "'I can tow a trailer!'";

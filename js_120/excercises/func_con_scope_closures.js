@@ -1,43 +1,43 @@
-//2.
+//1. What is This?
+// let person = {
+//   firstName: 'Rick ',
+//   lastName: 'Sanchez',
+//   fullName: this.firstName + this.lastName,
+// };
+
+// console.log(person.fullName);
+
+//2. The Franchise
 // let franchise = {
 //   name: 'How to Train Your Dragon',
-//   allMovies: function() {
+//   allMovies: function () {
 //     let self = this;
-//     return [1, 2, 3].map(function(number) {
+
+//     return [1, 2, 3].map(function (number) {
 //       return self.name + ' ' + number;
 //     });
 //   },
 // };
 
-// 3. hard bound anonymous function
-// let franchise = {
-//   name: 'How to Train Your Dragon',
-//   allMovies: function () {
-//     return [1, 2, 3].map(function (number) {
-//       return this.name + ' ' + number;
-//     }.bind(this));
-//   },
-// };
-
-// console.log(franchise.allMovies());
+// console.log(franchise.allMovies())
 
 //4. myFilter
-function myFilter(array, func, ctx) {
-  let result = [];
+// function myFilter(array, func, thisArg) {
+//   let result = [];
 
-  array.forEach(function (value) {
-    if (func.call(ctx, value)) {
-      result.push(value);
-    }
-  });
+//   array.forEach(function (value) {
+//     if (func.call(thisArg, value)) {
+//       result.push(value);
+//     }
+//   });
 
-  return result;
-}
+//   return result;
+// }
 
-let filter = {
-  allowedValues: [5, 6, 9],
-}
+// let filter = {
+//   allowedValues: [5, 6, 9],
+// }
 
-myFilter([2, 1, 3, 4, 5, 6, 9, 12], function (val) {
-  return this.allowedValues.indexOf(val) >= 0;
-}, filter);
+// myFilter([2, 1, 3, 4, 5, 6, 9, 12], function (val) {
+//   return this.allowedValues.indexOf(val) >= 0;
+// }, filter); // returns [5, 6, 9]

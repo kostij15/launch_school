@@ -1,22 +1,24 @@
-//1.
+//1. Ancestors
+
 // let foo = {
 //   name: 'foo',
 
 //   ancestors() {
-//     let objectNames = [];
-//     let prototype = Object.getPrototypeOf(this);
+//     let ancestorsArr = [];
+//     let currentObj = this;
 
-//     while (prototype) {
-//       if (prototype.name) {
-//         objectNames.push(prototype.name);
-//       } else {
-//         objectNames.push('Object.prototype')
+//     while (currentObj) {
+//       currentObj = Object.getPrototypeOf(currentObj);
+
+//       if (currentObj) {
+//         ancestorsArr.push(currentObj.name || 'Object.prototype');
 //       }
-//       prototype = Object.getPrototypeOf(prototype);
 //     }
-//     console.log(objectNames);
+
+//     return ancestorsArr;
 //   }
 // };
+
 // let bar = Object.create(foo);
 // bar.name = 'bar';
 // let baz = Object.create(bar);
@@ -24,129 +26,30 @@
 // let qux = Object.create(baz);
 // qux.name = 'qux';
 
-// qux.ancestors();  // returns ['baz', 'bar', 'foo', 'Object.prototype']
+// console.log(foo.ancestors());  // returns ['baz', 'bar', 'foo', 'Object.prototype']
 // baz.ancestors();  // returns ['bar', 'foo', 'Object.prototype']
 // bar.ancestors();  // returns ['foo', 'Object.prototype']
-// foo.ancestors();  
+// foo.ancestors();  // returns ['Object.prototype']
 
-//2. Classical Object Creation
+//3. Circular Queue
 
-// let Person = class {
-//   constructor(firstName, lastName, age, gender) {
-//     this.firstName = firstName;
-//     this.lastName = lastName;
-//     this.age = age;
-//     this.gender = gender;
-//   }
-
-//   fullName() {
-//     console.log(this.firstName + ' ' + this.lastName);
-//   }
-
-//   communicate() {
-//     console.log('Communicating');
-//   }
-
-//   eat() {
-//     console.log('Eating');
-//   }
-
-//   sleep() {
-//     console.log('Sleeping');
-//   }
-// }
-
-// class Doctor extends Person {
-//   constructor(firstName, lastName, age, gender, specialization) {
-//     super(firstName, lastName, age, gender);
-//     this.specialization = specialization;
-//   }
-
-//   diagnose() {
-//     console.log('Diagnosing');
-//   }
-// }
-
-// class Professor extends Person {
-//   constructor(firstName, lastName, age, gender, subject) {
-//     super(firstName, lastName, age, gender);
-//     this.subject = subject;
-//   }
-
-//   teach() {
-//     console.log('Teaching');
-//   }
-// }
-
-// let Student = class extends Person {
-//   constructor(firstName, lastName, age, gender, degree) {
-//     super(firstName, lastName, age, gender);
-//     this.degree = degree;
-//   }
-
-//   study() {
-//     console.log('Studying');
-//   }
-// }
-
-// let GraduateStudent = class extends Student {
-//   constructor(firstName, lastName, age, gender, degree, graduateDegree) {
-//     super(firstName, lastName, age, gender, degree);
-//     this.graduateDegree = graduateDegree;
-//   }
-
-//   research() {
-//     console.log('Researching');
-//   }
-// }
-
-// let person = new Person('foo', 'bar', 21, 'gender');
-// console.log(person instanceof Person);     // logs true
-// person.eat();                              // logs 'Eating'
-// person.communicate();                      // logs 'Communicating'
-// person.sleep();                            // logs 'Sleeping'
-// console.log(person.fullName());            // logs 'foo bar'
-
-// let doctor = new Doctor('foo', 'bar', 21, 'gender', 'Pediatrics');
-// console.log(doctor instanceof Person);     // logs true
-// console.log(doctor instanceof Doctor);     // logs true
-// doctor.eat();                              // logs 'Eating'
-// doctor.communicate();                      // logs 'Communicating'
-// doctor.sleep();                            // logs 'Sleeping'
-// console.log(doctor.fullName());            // logs 'foo bar'
-// doctor.diagnose();                         // logs 'Diagnosing'
-
-// let graduateStudent = new GraduateStudent('foo', 'bar', 21, 'gender', 'BS Industrial Engineering', 'MS Industrial Engineering');
-// // logs true for next three statements
-// console.log(graduateStudent instanceof Person);
-// console.log(graduateStudent instanceof Student);
-// console.log(graduateStudent instanceof GraduateStudent);
-// graduateStudent.eat();                     // logs 'Eating'
-// graduateStudent.communicate();             // logs 'Communicating'
-// graduateStudent.sleep();                   // logs 'Sleeping'
-// console.log(graduateStudent.fullName());   // logs 'foo bar'
-// graduateStudent.study();                   // logs 'Studying'
-// graduateStudent.research();                // logs 'Researching'
-
-//3.Circular Queue
 class CircularQueue {
-  constructor(queueNum) {
-    this.queueNum = queueNum;
-    this.queueArray = [];
+  constructor(queue) {
+    this.queue = queue;
+    this.arr = [];
   }
 
-  enqueue(obj) {
-    this.queueArray.unshift(obj);
+  enqueue(element) {
+    this.arr.unshift(element);
 
-    if (this.queueArray.length > this.queueNum) {
-      this.dequeue();
+    if (this.arr.length > this.queue) {
+      this.arr.pop();
     }
   }
 
   dequeue() {
-    if (this.queueArray.length === 0) return null;
-
-    return this.queueArray.pop();
+    if (this.arr.length === 0) return null;
+    return this.arr.pop();
   }
 }
 
@@ -164,7 +67,28 @@ console.log(queue.dequeue() === 2);
 queue.enqueue(5);
 queue.enqueue(6);
 queue.enqueue(7);
-console.log(queue.dequeue() === 5);
+console.log(queue.arr)
+console.log(queue.dequeue());
 console.log(queue.dequeue() === 6);
 console.log(queue.dequeue() === 7);
 console.log(queue.dequeue() === null);
+
+let anotherQueue = new CircularQueue(4);
+console.log(anotherQueue.dequeue() === null);
+
+anotherQueue.enqueue(1)
+anotherQueue.enqueue(2)
+console.log(anotherQueue.dequeue() === 1);
+
+anotherQueue.enqueue(3)
+anotherQueue.enqueue(4)
+console.log(anotherQueue.dequeue() === 2);
+
+anotherQueue.enqueue(5)
+anotherQueue.enqueue(6)
+anotherQueue.enqueue(7)
+console.log(anotherQueue.dequeue() === 4);
+console.log(anotherQueue.dequeue() === 5);
+console.log(anotherQueue.dequeue() === 6);
+console.log(anotherQueue.dequeue() === 7);
+console.log(anotherQueue.dequeue() === null);
