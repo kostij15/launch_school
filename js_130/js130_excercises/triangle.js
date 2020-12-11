@@ -37,11 +37,11 @@ class Triangle {
     if (this._equilateralCheck()) {
       return "equilateral";
     } else if (this._isocolesCheck()) {
-      return "isocoles";
+      return "isosceles";
     } else {
       return 'scalene';
     }
   }
 }
 
-module.exports = { Triangle };
+module.exports = Triangle;
