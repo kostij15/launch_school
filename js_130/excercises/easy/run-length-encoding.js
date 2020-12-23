@@ -22,10 +22,13 @@ function encode(characters) {
 function decode(characters) {
   let str = '';
 
-  characters = characters.match(/[0-9]?[a-z]/ig);
+  characters = characters.match(/([0-9]+)?[a-z]/ig);
+  // console.log(characters)
+
+  if (!characters) return '';
 
   characters.forEach(string => {
-    let stringedNum = string.match(/[0-9]/g);
+    let stringedNum = string.match(/[0-9]+/g);
     let number = Number(stringedNum ? stringedNum[0] : 1);
     let letter = String(string.match(/[a-z]/ig)[0]);
 
@@ -36,4 +39,5 @@ function decode(characters) {
   return str;
 }
 
-console.log(decode("2AB3CD4E"));
+console.log(decode("zzz ZZ  zZ"));
+module.exports = { encode, decode }
