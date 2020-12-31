@@ -34,7 +34,6 @@ function collectDaysOfWeek(year, monthNum, dayOfWeekName) {
 
   let dayOfWeekNum = daysOfWeek[dayOfWeekName];
   let daysInMonth = new Date(year, monthNum + 1, 0).getDate();
-  // console.log(daysInMonth);
 
   for (let day = 1; day <= daysInMonth; day++) {
     let date = new Date(year, monthNum, day);
@@ -42,7 +41,7 @@ function collectDaysOfWeek(year, monthNum, dayOfWeekName) {
       possibleMeetupDays.push(day);
     }
   }
-  // console.log(possibleMeetupDays);
+
   return possibleMeetupDays;
 }
 
