@@ -1,22 +1,23 @@
-//1.
-
+//1. startCounting
+//logs a number to the console every second, starting with 1
 function startCounting() {
-  let start = 1;
+  let count = 1;
 
-  function increment() {
-    console.log(start);
-    start += 1;
-  }
+  let id = setInterval(function () {
+    console.log(count);
+    count += 1;
+  }, 1000);
 
-  let counterId = setInterval(increment, 1000);
+  return id;
 
-  return counterId;
 }
+
+let id = startCounting();
+
+//2. stopCounting
 
 function stopCounting(id) {
   clearInterval(id);
 }
-
-let id = startCounting();
 
 stopCounting(id);

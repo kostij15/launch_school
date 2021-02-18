@@ -1,64 +1,69 @@
 "use strict";
 //1. delayLog
-//loops through the numbers from 1-10, logs each aft that number of seconds
-
 // function delayLog() {
-//   for (var second = 1; second <= 10; second++) {
-//     console.log(second);
+//   for (let i = 1; i <= 10; i++) {
 //     setTimeout(function () {
-//       console.log(second);
-//     }, second * 1000);
+//       console.log(i);
+//     }, i * 1000);
 //   }
 // }
 
 // delayLog();
 
-//3. List the following in order of lines run 
+//2. let delay to var delay
+// function delayLog() {
+//   for (var delay = 1; delay <= 10; delay++) {
+//     setTimeout(function () {
+//       console.log(delay);
+//     }, delay * 1000);
+//   }
+// }
 
-// setTimeout(function() {   // 1
-//   console.log('Once');    // 5
+// delayLog();
+
+//3. Order of Execution
+// setTimeout(function () {   // 1
+//   console.log('Once');     // 5
 // }, 1000);
 
-// setTimeout(function() {   // 2
-//   console.log('upon');    // 7
+// setTimeout(function () {   // 2
+//   console.log('upon');     // 7
 // }, 3000);
 
-// setTimeout(function() {   // 3
-//   console.log('a');       // 6
+// setTimeout(function () {   // 3
+//   console.log('a');        // 6
 // }, 2000);
 
-// setTimeout(function() {   // 4
-//   console.log('time');    // 8
+// setTimeout(function () {   // 4
+//   console.log('time');     // 8
 // }, 4000);
 
-//4. In what sequence does the JavaScript runtime run the functions q(), d(), n(), z(), s(), f(), and g() in the following code?
-
-// setTimeout(function() { 
-//   setTimeout(function() { 
-//     q(); // 7
+//4. Order of Execution
+// setTimeout(function () {
+//   setTimeout(function () {
+//     q();              ///7
 //   }, 15);
 
-//   d(); // 3
+//   d();              // 3
 
-//   setTimeout(function() {
-//     n(); // 5
+//   setTimeout(function () {
+//     n();           //5 
 //   }, 5);
 
-//   z(); // 4
-// }, 10);
+//   z();            //4
+// }, 10); 
 
-// setTimeout(function() {
-//   s(); // 6
+// setTimeout(function () {
+//   s();            //6
 // }, 20);
 
-// setTimeout(function() { 
-//   f(); // 1
+// setTimeout(function () {
+//   f();                    //2
 // });
 
-// g(); // 2
+// g();              //1
 
-//5. afterNSeconds takes to arguments a callback and time duration
-
-// function afterNSeconds(callback, seconds) {
-//   setTimeout(callback, seconds * 1000);
-// }
+//5. afterNSeconds
+function afterNSeconds(callback, delaySeconds) {
+  setTimeout(callback, delaySeconds * 1000);
+} 
