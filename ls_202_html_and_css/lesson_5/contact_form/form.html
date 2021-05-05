@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Problem -->
+<!-- Creating a contact web form with lablel and input fields -->
+<!-- First name, last name -->
+<!-- email address , input type="email"-->
+<!-- city state zip -->
+
+<!-- state should be a dropdown with two letter abbreviation as option -->
+<!-- zip code is not a type but we can limit to 5 digits -->
+
+<!-- Begin with question that asks "Which of these colors do you like best" and add list -->
+<!-- pre-select the first color in the list when the page loads -->
+
+<!-- Add "Which web technologies do you want to learn?" with some technologies -->
+<!-- Add a comment box thats rows="6" cols="80" but scrolls as needed -->
+
+<!-- When a user clicks the submit button, browser sends a timestamp to the server along iwth the other form data -->
+<!-- form should have an input tag for the timestamp but the browser shoudln't display it to the user -->
+<!-- can use hidden -->
+
+<!-- Add a submit input to create a button wiht the name Send -->
+<!-- Include a reset button so the user can clear the form and start over -->
+
+<head>
+  <meta charset="utf-8" />
+  <title>Contact Form</title>
+  <link rel="stylesheet" href="form.css">
+</head>
+
+<body>
+  <form action="#" method="POST">
+    <fieldset class="side-by-side">
+      <input type="hidden" value="2021-05-04" name="date" />
+
+      <dl>
+        <dt><label for="email">Email Address</label></dt>
+        <dd><input type="email" id="email"></dd>
+
+        <dt><label for="first_name">First Name</label></dt>
+        <dd><input type="text" name="first_name" id="first_name"></dd>
+
+        <dt><label for="last_name">Last Name</label></dt>
+        <dd><input type="text" name="last_name" id="last_name"></dd>
+
+        <dt><label for="city">City</label></dt>
+        <dd><input type="text" name="city" id="city"></dd>
+
+        <dt><label for="state">State</label></dt>
+        <dd><select name="state" id="state">
+            <option>AK</option>
+            <option>AL</option>
+            <option>AR</option>
+            <option>AZ</option>
+            <option>CA</option>
+            <option>CO</option>
+            <option>CT</option>
+            <option>DC</option>
+            <option>DE</option>
+            <option>FL</option>
+            <option>GA</option>
+            <option>HI</option>
+            <option>IA</option>
+            <option>ID</option>
+            <option>IL</option>
+            <option>IN</option>
+            <option>KS</option>
+            <option>KY</option>
+            <option>LA</option>
+            <option>MA</option>
+            <option>MD</option>
+            <option>ME</option>
+            <option>MI</option>
+            <option>MN</option>
+            <option>MO</option>
+            <option>MS</option>
+            <option>MT</option>
+            <option>NC</option>
+            <option>ND</option>
+            <option>NE</option>
+            <option>NH</option>
+            <option>NJ</option>
+            <option>NM</option>
+            <option>NV</option>
+            <option>NY</option>
+            <option>OH</option>
+            <option>OK</option>
+            <option>OR</option>
+            <option>PA</option>
+            <option>RI</option>
+            <option>SC</option>
+            <option>SD</option>
+            <option>TN</option>
+            <option>TX</option>
+            <option>UT</option>
+            <option>VA</option>
+            <option>VT</option>
+            <option>WA</option>
+            <option>WI</option>
+            <option>WV</option>
+            <option>WY</option>
+          </select>
+        </dd>
+
+        <dt><label for="zip">ZipCode</label></dt>
+        <dd><input type="text" name="zip" id="zip" pattern="[0-9]{5}" /></dd>
+      </dl>
+
+      <div>
+        <h4>Which of these colors do you like best?</h4>
+        <ul>
+          <li><label><input type="radio" name="color_question" value="blue">Blue</label>
+          </li>
+          <li>
+            <label><input type="radio" name="color_question" value="green">Green
+            </label>
+          </li>
+          <li>
+            <label><input type="radio" name="color_question" value="red">Red
+            </label>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Which web technologies do you use?</h4>
+        <ul>
+          <li>
+            <label>
+              <input type="checkbox" name="html">HTML
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" name="css">CSS
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" name="javascript">JavaScript
+            </label>
+          </li>
+        </ul>
+      </div>
+      <input type="submit" value="Send" />
+      <input type="reset" value="Reset" />
+    </fieldset>
+  </form>
+</body>
+
+</html>

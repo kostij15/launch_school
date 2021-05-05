@@ -1,0 +1,48 @@
+/* Add to end of file */
+.styled-form label {
+  padding-top: 0.3333rem;
+}
+
+.top-to-bottom dl.partial {
+  box-sizing: border-box;
+  display: inline-block;
+  padding-right: 1rem;
+  vertical-align: top;
+}
+
+.top-to-bottom dl.address {
+  width: 100%;
+}
+
+.top-to-bottom dl.city {
+  width: 50%;
+}
+
+.top-to-bottom dl.state {
+  width: 25%;
+}
+
+.top-to-bottom dl.zipcode {
+  padding-right: 0;
+  width: 25%;
+}
+
+.top-to-bottom dl dd {
+  width: auto;
+}
+
+.top-to-bottom fieldset,
+.top-to-bottom dl,
+.top-to-bottom dl dd,
+.top-to-bottom dl dt {
+  font-size: 0;
+}
+
+.top-to-bottom dl label,
+.top-to-bottom dl input[type="text"] {
+  font-size: 1rem;
+}
+
+.top-to-bottom select {
+  width: 100%;
+}
