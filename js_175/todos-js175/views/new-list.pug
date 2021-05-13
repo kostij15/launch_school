@@ -1,0 +1,15 @@
+extends layout
+
+block main
+  form(actions="/lists" method = "post")
+    dl
+      dt
+        label(for="todoListTitle") Enter the title for your new list:
+      dd
+        input(type="text",
+          id="todoListTitle",
+          name="todoListTitle",
+          placeholder="List Title")
+    fieldset
+      input(type="submit" value="Save")
+      a(href="/lists") Cancel
