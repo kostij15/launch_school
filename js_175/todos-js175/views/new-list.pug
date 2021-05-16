@@ -1,7 +1,7 @@
 extends layout
 
 block main
-  form(actions="/lists" method = "post")
+  form(action="/lists" method = "post")
     dl
       dt
         label(for="todoListTitle") Enter the title for your new list:
@@ -9,7 +9,8 @@ block main
         input(type="text",
           id="todoListTitle",
           name="todoListTitle",
-          placeholder="List Title")
+          placeholder="List Title"
+          value = todoListTitle)
     fieldset
       input(type="submit" value="Save")
       a(href="/lists") Cancel
