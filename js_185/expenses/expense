@@ -1,0 +1,10 @@
+#!/usr/bin/env node
+
+const { Client } = require('pg');
+const DB_CREDENTIALS = {
+  database: 'expenses',
+  user: 'postgres',
+  password: 'dorraj13',
+}
+
+let client = new Client()
