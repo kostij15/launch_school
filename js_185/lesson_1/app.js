@@ -1,8 +1,8 @@
 const { Client } = require('pg');
 const DB_CREDENTIALS = {
   database: 'films',
-  user: 'postgres',
-  password: 'dorraj13',
+  user: '',
+  password: '',
 };
 let client = new Client(DB_CREDENTIALS);
 
